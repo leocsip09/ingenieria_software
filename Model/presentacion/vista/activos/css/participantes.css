@@ -1,0 +1,21 @@
+/* Archivo: presentacion/vista/activos/css/participantes.css */
+
+/* Variables de diseño */
+:root {
+    --max-width-container: 800px;
+    --padding-container: 20px;
+}
+
+/* Contenedor principal para los participantes */
+#participantes-container {
+    max-width: var(--max-width-container);
+    margin: auto;
+    padding: var(--padding-container);
+}
+
+/* Estilo para los elementos de la lista de participantes */
+#lista-participantes li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
