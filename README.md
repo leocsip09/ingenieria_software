@@ -79,3 +79,85 @@ class AdministradorEleccion:
         if candidato in eleccion.lista_candidatos:
             eleccion.lista_candidatos.remove(candidato)
 
+2)  Error/Exception Handling: Este enfoque mejora el manejo de errores utilizando excepciones. Al usar raise ValueError para señalar problemas específicos, el código se vuelve más robusto y es más fácil de depurar, ya que los errores se identifican y manejan claramente.
+ 
+class Voto:
+    def __init__(self):
+        """Inicializa un nuevo objeto Voto con valores predeterminados."""
+        self.fecha: Optional[datetime] = None
+        self.hora: Optional[datetime] = None
+        self.elector: Optional[str] = None  # Suponiendo que elector es un string con el nombre
+        self.id_voto: Optional[str] = None  # Suponiendo que id_voto es un string
+
+    def registrar_voto(self, elector: str, id_voto: str, fecha: Optional[datetime] = None, hora: Optional[datetime] = None) -> None:
+        """Registra un voto con el elector y el ID, y establece la fecha y la hora actuales si no se proporcionan."""
+        self.elector = elector
+        self.id_voto = id_voto
+        
+        if fecha is None:
+            self.fecha = datetime.now().date()
+        else:
+            self.fecha = fecha
+
+        if hora is None:
+            self.hora = datetime.now().time()
+        else:
+            self.hora = hora
+
+    def confirmar_voto(self):
+        if not self.elector:
+            raise ValueError("Elector no proporcionado.")
+        if not self.fecha:
+            raise ValueError("Fecha no proporcionada.")
+        if not self.hora:
+            raise ValueError("Hora no proporcionada.")
+        if not self.id_voto:
+            raise ValueError("ID de voto no proporcionado.")
+        print("Voto confirmado")
+        return True
+
+
+3) PIPELINE : procesar datos a través de una serie de pasos, donde la salida de un paso se convierte en la entrada del siguiente
+class Resultados(IResultados):
+    def __init__(self):
+        """Inicializa la clase Resultados con total de votos y listas vacías."""
+        self.total_votos: int = 0
+        self.votos_candidatos: List[int] = []  # Lista de votos por candidato
+        self.porcentajes_candidatos: List[float] = []  # Lista de porcentajes por candidato
+
+    def agregar_votos(self, votos_candidatos: List[int]) -> None:
+        """Añade los votos de los candidatos y actualiza el total de votos."""
+        if not all(isinstance(voto, int) for voto in votos_candidatos):
+            raise ValueError("Todos los votos deben ser enteros.")
+        
+        self.votos_candidatos = votos_candidatos
+        self.total_votos = sum(votos_candidatos)
+        self.calcular_porcentajes()
+
+    def calcular_porcentajes(self) -> None:
+        """Calcula el porcentaje de votos que obtuvo cada candidato."""
+        if self.total_votos > 0:
+            self.porcentajes_candidatos = [(votos / self.total_votos) * 100 for votos in self.votos_candidatos]
+        else:
+            self.porcentajes_candidatos = [0 for _ in self.votos_candidatos]
+
+    def get_votos_totales(self) -> int:
+        """Retorna el total de votos."""
+        return self.total_votos
+
+    def get_votos_candidatos(self) -> List[int]:
+        """Retorna la lista de votos por candidato."""
+        return self.votos_candidatos
+
+    def get_porcentajes_candidatos(self) -> List[float]:
+        """Retorna la lista de porcentajes de votos por candidato."""
+        return self.porcentajes_candidatos
+
+    def publicar_resultados(self) -> dict:
+        """Publica los resultados mostrando los votos totales y los porcentajes por candidato."""
+        return {
+            "total_votos": self.get_votos_totales(),
+            "votos_candidatos": self.get_votos_candidatos(),
+            "porcentajes_candidatos": self.get_porcentajes_candidatos()
+        }
+        
