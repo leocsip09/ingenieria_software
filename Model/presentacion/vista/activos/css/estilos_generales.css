@@ -1,0 +1,54 @@
+/* Archivo: presentacion/vista/activos/css/estilos_generales.css */
+
+/* Variables de colores */
+:root {
+    --primary-color: #007bff;
+    --primary-color-hover: #0056b3;
+    --background-color: #f8f9fa;
+    --text-color: #343a40;
+    --border-color: #dee2e6;
+    --white-color: #ffffff;
+}
+
+/* Estilo global del cuerpo */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color);
+}
+
+/* Estilo para los encabezados */
+h1 {
+    color: var(--text-color);
+}
+
+/* Estilo para listas no ordenadas */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+/* Estilo para los elementos de la lista */
+li {
+    padding: 10px;
+    background-color: var(--white-color);
+    margin-bottom: 5px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+}
+
+/* Estilo para los botones */
+button {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Estilo para el estado hover de los botones */
+button:hover {
+    background-color: var(--primary-color-hover);
+}
