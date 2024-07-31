@@ -4,7 +4,7 @@ Fork del [Sistema de elecciones online](https://github.com/Kiw1i/ingenieria_soft
 
 ## Descripción
 
-El objetivo del proyecto original es implementar un sistema que permita a los usuarios programar elecciones para la fecha deseada, entre los candidatos inidicados y para los electores a quienes compete. Este fork implementa la parte de los repositorios y conexiones a base de datos del sistema, así como modelos de flujo de información entre las diversas capas.
+El objetivo del proyecto original es implementar un sistema que permita a los usuarios programar elecciones para la fecha deseada, entre los candidatos inidicados y para los electores a quienes compete. Este fork implementa la parte de los repositorios al módulo `proceso_electoral` y conexiones a base de datos del sistema, así como modelos de flujo de información entre las diversas capas.
 
 ## Estilos
 
