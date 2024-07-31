@@ -9,8 +9,10 @@ class Voto:
         self.id_voto = None
 
     def registrar_voto(self, elector, fecha, hora, id_voto):
+        # por implementar
         pass
 
     def confirmar_voto(self, ):
+        # por implementar
         pass
 
