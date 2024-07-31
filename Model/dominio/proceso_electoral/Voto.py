@@ -26,10 +26,14 @@ class Voto:
         else:
             self.hora = hora
 
-    def confirmar_voto(self) -> bool:
-        """Confirma si el voto ha sido registrado con todos los datos requeridos."""
-        if all([self.elector, self.fecha, self.hora, self.id_voto]):
-            print("Voto confirmado")
-            return True
-        print("Voto no confirmado")
-        return False
+    def confirmar_voto(self):
+        if not self.elector:
+            raise ValueError("Elector no proporcionado.")
+        if not self.fecha:
+            raise ValueError("Fecha no proporcionada.")
+        if not self.hora:
+            raise ValueError("Hora no proporcionada.")
+        if not self.id_voto:
+            raise ValueError("ID de voto no proporcionado.")
+        print("Voto confirmado")
+        return True
