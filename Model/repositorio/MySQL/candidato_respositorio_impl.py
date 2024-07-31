@@ -26,5 +26,5 @@ class candidato_respositorio_impl:
         try:
             candidato = Candidato.query.get(id)
             return candidato
-        except NoResultFound:
+        except Exception as e:
             return None

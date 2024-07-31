@@ -2,7 +2,9 @@ from Model.extensions import db
 from sqlalchemy import Column, Integer, String, Boolean
 
 class Candidato(db.Model):
-    __tablename__ = 'candidato'
-    id = Column(Integer, primary_key=True)
-    candidatura = Column(String(255), nullable=False)
-    propuesta = Column(String(255), nullable=False)
+    id = db.Column(db.Integer, primary_key=True)
+    candidatura = db.Column(db.String(100), unique=True, nullable=False)
+    propuesta = db.Column(db.String(200), nullable=False)
+
+    def __repr__(self):
+        return f'<Candidato {self.candidatura}>'

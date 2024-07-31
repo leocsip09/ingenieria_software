@@ -1,6 +1,5 @@
 #!/usr/bin/python
 #-*- coding: utf-8 -*-
-
 from Model.extensions import db
 from Model.models import Elector
 
@@ -23,9 +22,9 @@ class elector_repositorio_impl:
             db.session.rollback()
             return False
 
-    def obtener_elector_por_correo(self, correo):
+    def obtener_elector_por_id(self, id):
         try:
-            elector = Elector.query.filter_by(correo=correo).one()
+            elector = Elector.query.get(id)
             return elector
-        except NoResultFound:
+        except Exception as e:
             return None
