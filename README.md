@@ -1,7 +1,7 @@
-## Sistema de elecciones online 
-# Error/Exception Handling
+# Sistema de elecciones online 
+## Error/Exception Handling
 Este estilo se aplica en todos los métodos del repositorio para manejar posibles errores durante las operaciones con la base de datos. Si ocurre una excepción, la operación se revierte para mantener la integridad de los datos. 
-# Cookbook
+## Cookbook
 Con la integración de este estilo, se ve la implementación clara y directa de operaciones CRUD en los métodos del repositorio.
 
 Error/Exception Handling y Cookbook se ven en:
@@ -89,7 +89,7 @@ class elector_repositorio_impl:
             db.session.rollback()
             return False
 
-# Persistent-Tables
+## Persistent-Tables
 Este estilo se aplica al definir los modelos de base de datos Candidato y Elector utilizando SQLAlchemy, lo que asegura que los datos se almacenan de manera óptima en la base de datos. 
 Estas tablas se pueden ver en:
 
