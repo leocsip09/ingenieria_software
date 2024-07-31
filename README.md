@@ -29,7 +29,7 @@ candidatura="Presidencial", propuesta="Mejora económica")
     def modificar_propuesta(self, propuesta):
         self.propuesta = propuesta
         return "Propuesta modificada exitosamente"
-# Estilos usados: Cookbook, trinity y lazy river
+# Estilos usados: Cookbook, RESTful y lazy river
     //Lazy River flujo de datos sin interrupciones
 
     class Candidato(Elector):
@@ -60,3 +60,17 @@ candidatura="Presidencial", propuesta="Mejora económica")
         return "Candidato registrado exitosamente"
     Prueba: 
         candidato = Candidato(id=2, correo="candidato@correo.com", contraseña="password123", nombre="Maria", apellido="Gomez", candidatura="Presidencial", propuesta="Mejora económica")
+    // REstful, API de get y post
+    @app.route('/registrar', methods=['POST'])
+    def registrar():
+    data = request.json
+    nombre = data.get('nombre')
+    apellido = data.get('apellido')
+    return jsonify({"mensaje": elector.registrar(nombre, apellido)})
+
+    @app.route('/iniciar_sesion', methods=['POST'])
+    def iniciar_sesion():
+    data = request.json
+    correo = data.get('correo')
+    contraseña = data.get('contraseña')
+    return jsonify({"mensaje": elector.iniciar_sesion(correo, contraseña)})
