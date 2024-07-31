@@ -8,9 +8,9 @@ El objetivo del proyecto original es implementar un sistema que permita a los us
 
 ## Estilos
 
-### Manejo de errores/excepciones: Pasivo-agresivo
+### Manejo de errores/excepciones: Constructivista
 
-El programa busca comunicar claramente el error arrojado que causó su terminación.
+El programa intenta seguir con su ejecución si sucede algún error devolviendo valores determinados "razonables".
 
 ```python
 except NoResultFound:
