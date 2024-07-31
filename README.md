@@ -45,3 +45,11 @@ db.session.add(admin)
 ```python
 admin_nombre = entrada.nombre
 ```
+
+## Uso
+
+Se puede acceder a los repositorios mediante su interfaz, enviando la información pertinente a través de su modelo correspondiente. La información, si existe, se extraerá de la base de datos.
+
+## Autor
+
+Kristopher Rospigliosi Gonzales
