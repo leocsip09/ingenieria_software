@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro Electoral</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Registro Electoral</h1>
+        <nav>
+            <a href="{{ url_for('proceso_electoral.administrador_eleccion') }}">Administrador</a>
+            <a href="{{ url_for('proceso_electoral.eleccion') }}">Elección</a>
+            <a href="{{ url_for('proceso_electoral.resultados') }}">Resultados</a>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Registro Electoral</h2>
+            <p>Aquí puedes gestionar el registro de las elecciones.</p>
+            <!-- Agregar más contenido o funcionalidades aquí -->
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Sistema de Elecciones en Línea</p>
+    </footer>
+</body>
+</html>
