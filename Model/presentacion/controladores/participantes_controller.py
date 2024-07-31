@@ -41,3 +41,12 @@ class ParticipantesController:
         """
         self.servicio.eliminar(id)
         return '', 204
+    
+    @participantes_bp.route('/participantes/<int:id>/detalle', methods=['GET'])
+    def obtener_detalle_participante(self, id):
+        detalle = self.servicio.obtener_detalle(id)
+        return jsonify(detalle)
+    
+# Uso
+servicio = ParticipantesServicio()
+controller = ParticipantesController(servicio)

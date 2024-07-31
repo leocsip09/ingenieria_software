@@ -47,6 +47,11 @@ button {
     border-radius: 5px;
     cursor: pointer;
 }
+/* Estilo para los párrafos */
+p {
+    color: var(--text-color);
+    line-height: 1.6;
+}
 
 /* Estilo para el estado hover de los botones */
 button:hover {
