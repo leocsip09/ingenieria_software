@@ -1,11 +1,11 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
+from Model.extensions import db
 
 app = Flask(__name__)
 
 app.config.from_object('../config.Config')
 
-db = SQLAlchemy(app)
+db.init_app(app)
 
 with app.app_context():
     db.create_all()

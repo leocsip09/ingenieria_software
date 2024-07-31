@@ -1,6 +1,9 @@
 #!/usr/bin/python
 #-*- coding: utf-8 -*-
 
+from Model.extensions import db
+from Model.models import Elector
+
 class elector_repositorio_impl:
     def agregar_elector(self, elector):
         try:
