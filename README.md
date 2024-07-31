@@ -7,6 +7,7 @@ Con la integración de este estilo, se ve la implementación clara y directa de 
 Error/Exception Handling y Cookbook se ven en:
 
 *candidato_repositorio_impl.py:*
+´´´python
 class candidato_respositorio_impl:
     def agregar_candidato(self, candidato): # Create
         try:
@@ -45,8 +46,9 @@ class candidato_respositorio_impl:
         except Exception:
             db.session.rollback()
             return False
-
+´´´
 *elector_repositorio_impl.py:*
+´´´python
 class elector_repositorio_impl:
     def agregar_elector(self, elector):
         try:
@@ -88,12 +90,13 @@ class elector_repositorio_impl:
         except Exception:
             db.session.rollback()
             return False
-
+´´´
 ## Persistent-Tables
 Este estilo se aplica al definir los modelos de base de datos Candidato y Elector utilizando SQLAlchemy, lo que asegura que los datos se almacenan de manera óptima en la base de datos. 
 Estas tablas se pueden ver en:
 
 *En models/Candidato.py:*
+´´´python
 from Model.extensions import db
 
 class Candidato(db.Model):
@@ -103,8 +106,9 @@ class Candidato(db.Model):
 
     def __repr__(self):
         return f'<Candidato {self.candidatura}>'
-
+´´´
 *En models/Elector.py:*
+´´´python
 from Model.extensions import db
 
 class Elector(db.Model):
@@ -117,3 +121,4 @@ class Elector(db.Model):
     
     def __repr__(self):
         return f'<Elector {self.nombre} {self.apellido}>'
+´´´
