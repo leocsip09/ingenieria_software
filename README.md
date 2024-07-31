@@ -1,9 +1,10 @@
-DOCUMENTACION DEL PROYECTO 
+# DOCUMENTACION DEL PROYECTO 
 
-Principio SOLID : 
-1) Single Responsibility Principle (SRP) :
+## Principio SOLID : 
+1. Single Responsibility Principle (SRP) :
    La clase AdministradorEleccion se encarga únicamente de registrar a un administrador, cumpliendo con el principio de Responsabilidad Única (SRP).
 
+```python
 class AdministradorEleccion:
     def __init__(self):
         self.nombre = None
@@ -14,10 +15,12 @@ class AdministradorEleccion:
         self.nombre = nombre
         self.password = password
         self.id = id
+```
 
-2)  Open/Closed Principle (OCP):
+2.  Open/Closed Principle (OCP):
     La clase Eleccion está diseñada para ser abierta para la extensión pero cerrada para la modificación (OCP), permitiendo añadir nuevas funcionalidades sin cambiar el código existente.
 
+```python
 class Eleccion:
     def __init__(self, tipo_eleccion: str = None, fecha_inicio: str = None, fecha_fin: str = None):
         self.tipo_eleccion = tipo_eleccion
@@ -29,13 +32,14 @@ class Eleccion:
 
     def finalizar_eleccion(self, fecha_fin: str) -> None:
         self.fecha_fin = fecha_fin
+```
 
-
-3) Interface Segregation Principle (ISP):
+3. Interface Segregation Principle (ISP):
    La interfaz IResultados está diseñada para proporcionar métodos específicos relacionados con la gestión de resultados, cumpliendo con el principio de Segregación de Interfaces (ISP) al asegurar que las 
    implementaciones solo dependan de métodos que realmente utilizan
 from abc import ABC, abstractmethod
 
+```python
 class IResultados(ABC):
     @abstractmethod
     def agregar_voto(self, candidato: str) -> None:
@@ -49,10 +53,12 @@ class IResultados(ABC):
     def mostrar_resultados(self) -> dict:
         pass
 ---
+```
 
-ESTILOS DE PROGRAMACION 
-1) THINGS: El estilo "Things" se centra en representar entidades del mundo real y sus interacciones.  Estas clases encapsulan datos y comportamientos relacionados con cada entidad, facilitando la gestión y manipulación de objetos del sistema de votación
-   
+## ESTILOS DE PROGRAMACION 
+1. THINGS: El estilo "Things" se centra en representar entidades del mundo real y sus interacciones.  Estas clases encapsulan datos y comportamientos relacionados con cada entidad, facilitando la gestión y manipulación de objetos del sistema de votación
+
+```python
 class AdministradorEleccion:
     def __init__(self, nombre, password, id=None):
         self.nombre = nombre
@@ -78,9 +84,11 @@ class AdministradorEleccion:
     def eliminar_candidato(self, eleccion, candidato):
         if candidato in eleccion.lista_candidatos:
             eleccion.lista_candidatos.remove(candidato)
+```
 
-2)  Error/Exception Handling: Este enfoque mejora el manejo de errores utilizando excepciones. Al usar raise ValueError para señalar problemas específicos, el código se vuelve más robusto y es más fácil de depurar, ya que los errores se identifican y manejan claramente.
- 
+3.  Error/Exception Handling: Este enfoque mejora el manejo de errores utilizando excepciones. Al usar raise ValueError para señalar problemas específicos, el código se vuelve más robusto y es más fácil de depurar, ya que los errores se identifican y manejan claramente.
+
+```python
 class Voto:
     def __init__(self):
         """Inicializa un nuevo objeto Voto con valores predeterminados."""
@@ -115,11 +123,13 @@ class Voto:
             raise ValueError("ID de voto no proporcionado.")
         print("Voto confirmado")
         return True
+```
 
-
-3) PIPELINE : procesar datos a través de una serie de pasos, donde la salida de un paso se convierte en la entrada del siguiente
+3. PIPELINE : procesar datos a través de una serie de pasos, donde la salida de un paso se convierte en la entrada del siguiente
 class Resultados(IResultados):
-    def __init__(self):
+
+```python
+   def __init__(self):
         """Inicializa la clase Resultados con total de votos y listas vacías."""
         self.total_votos: int = 0
         self.votos_candidatos: List[int] = []  # Lista de votos por candidato
@@ -160,4 +170,4 @@ class Resultados(IResultados):
             "votos_candidatos": self.get_votos_candidatos(),
             "porcentajes_candidatos": self.get_porcentajes_candidatos()
         }
-        
+```
