@@ -1,5 +1,4 @@
 from Model.extensions import db
-from sqlalchemy import Column, Integer, String, Boolean
 
 class Candidato(db.Model):
     id = db.Column(db.Integer, primary_key=True)

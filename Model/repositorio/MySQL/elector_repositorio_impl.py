@@ -9,7 +9,7 @@ class elector_repositorio_impl:
             db.session.add(elector)
             db.session.commit()
             return True
-        except Exception as e:
+        except Exception:
             db.session.rollback()
             return False
 
@@ -18,7 +18,7 @@ class elector_repositorio_impl:
             db.session.delete(elector)
             db.session.commit()
             return True
-        except Exception as e:
+        except Exception:
             db.session.rollback()
             return False
 
@@ -26,5 +26,21 @@ class elector_repositorio_impl:
         try:
             elector = Elector.query.get(id)
             return elector
-        except Exception as e:
+        except Exception:
             return None
+    
+    def actualizar_elector(self, id, nuevo_correo, nueva_contrasena, nuevo_nombre, nuevo_apellido, nuevo_estado_voto):
+        try:
+            elector = Elector.query.get(id)
+            if elector:
+                elector.correo = nuevo_correo
+                elector.contrasena = nueva_contrasena
+                elector.nombre = nuevo_nombre
+                elector.apellido = nuevo_apellido
+                elector.estado_voto = nuevo_estado_voto
+                db.session.commit()
+                return True
+            return False
+        except Exception:
+            db.session.rollback()
+            return False

@@ -9,7 +9,7 @@ class candidato_respositorio_impl:
             db.session.add(candidato)
             db.session.commit()
             return True
-        except Exception as e:
+        except Exception:
             db.session.rollback()
             return False
 
@@ -18,7 +18,7 @@ class candidato_respositorio_impl:
             db.session.delete(candidato)
             db.session.commit()
             return True
-        except Exception as e:
+        except Exception:
             db.session.rollback()
             return False
 
@@ -26,5 +26,18 @@ class candidato_respositorio_impl:
         try:
             candidato = Candidato.query.get(id)
             return candidato
-        except Exception as e:
+        except Exception:
             return None
+    
+    def actualizar_candidato(self, id, nueva_candidatura, nueva_propuesta):
+        try:
+            candidato = Candidato.query.get(id)
+            if candidato:
+                candidato.candidatura = nueva_candidatura
+                candidato.propuesta = nueva_propuesta
+                db.session.commit()
+                return True
+            return False
+        except Exception:
+            db.session.rollback()
+            return False
