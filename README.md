@@ -1,6 +1,6 @@
 # Repositorios del sistema de elecciones online
 
-Fork del [Sistema de elecciones online][https://github.com/Kiw1i/ingenieria_software]
+Fork del [Sistema de elecciones online](https://github.com/Kiw1i/ingenieria_software)
 
 ## Descripción
 
@@ -34,7 +34,7 @@ entrada = db.session.query(AdministradorModelo).filter_by(id = admin_id).one()
 admin_nombre = entrada.nombre
 ```
 
-### Trinity
+### Trinity (MVC)
 
 La base de datos se comunica con los repositorios a través de una clase (modelo), que a su vez comunica a los repositorios con el dominio y viceversa.
 
