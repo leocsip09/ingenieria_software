@@ -1,5 +1,6 @@
 from flask import Flask
 from Model.extensions import db
+from Model.extensions import db
 
 def create_app():
     app = Flask(__name__)
@@ -8,7 +9,7 @@ def create_app():
     db.init_app(app)
 
     with app.app_context():
-        from .models import Candidato, Elector
+        from .models import Candidato, Elector, eleccion, registro_electoral, administrador_eleccion
         db.create_all()
 
     return app

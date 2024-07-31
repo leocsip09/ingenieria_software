@@ -7,14 +7,18 @@ class AdministradorEleccion:
         self.id = None
 
     def configurar_eleccion(self, ):
+        # por implementar
         pass
 
-    def Igestionar_candidatos(self, ):
+    def gestionar_candidatos(self, ):
+        # por implementar
         pass
 
     def gestionar_elector(self, ):
+        # por implementar
         pass
 
     def registrar_admin(self, nombre):
+        # por implementar
         pass
 
