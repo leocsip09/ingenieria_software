@@ -13,14 +13,12 @@ El objetivo del proyecto original es implementar un sistema que permita a los us
 El programa busca comunicar claramente el error arrojado que causó su terminación.
 
 ```python
-try:
-    db.session.add(eleccion)
-    db.session.commit()
-except:
-    db.session.rollback()
-    raise
-finally:
-    db.session.close()
+except NoResultFound:
+    print(f"No se encontró una entrada con la id {admin_id}\n")
+    return None
+except SQLAlchemyError as e:
+    print(f"Hubo un error al consultar la base de datos: {e}")
+    return None
 ```
 
 ### Tablas de persistencia
