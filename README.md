@@ -1,5 +1,5 @@
 # Sistema de elecciones online 
-## Error/Exception Handling
+## Error/Exception Handling (constructive)
 Este estilo se aplica en todos los métodos del repositorio para manejar posibles errores durante las operaciones con la base de datos. Si ocurre una excepción, la operación se revierte para mantener la integridad de los datos. 
 ## Cookbook
 Con la integración de este estilo, se ve la implementación clara y directa de operaciones CRUD en los métodos del repositorio.
