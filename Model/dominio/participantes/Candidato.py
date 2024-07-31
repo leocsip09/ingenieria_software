@@ -8,7 +8,6 @@ class Candidato(Elector):
         self.candidatura = None
         self.propuesta = None
         self.propuestas = None
-        self.poner set y get = None
 
     def modificar_propuesta(self, propuesta):
         pass
