@@ -48,5 +48,34 @@ class IResultados(ABC):
     @abstractmethod
     def mostrar_resultados(self) -> dict:
         pass
+---
 
+ESTILOS DE PROGRAMACION 
+1) THINGS: El estilo "Things" se centra en representar entidades del mundo real y sus interacciones.  Estas clases encapsulan datos y comportamientos relacionados con cada entidad, facilitando la gestión y manipulación de objetos del sistema de votación
    
+class AdministradorEleccion:
+    def __init__(self, nombre, password, id=None):
+        self.nombre = nombre
+        self.password = password
+        self.id = id
+
+    def registrar_admin(self, nombre, password, id):
+        self.nombre = nombre
+        self.password = password
+        self.id = id
+
+    def configurar_eleccion(self, eleccion, nueva_fecha_inicio=None, nueva_fecha_fin=None, nuevos_candidatos=None):
+        if nueva_fecha_inicio:
+            eleccion.iniciar_eleccion(nueva_fecha_inicio)
+        if nueva_fecha_fin:
+            eleccion.finalizar_eleccion(nueva_fecha_fin)
+        if nuevos_candidatos:
+            eleccion.lista_candidatos = nuevos_candidatos
+
+    def agregar_candidato(self, eleccion, candidato):
+        eleccion.lista_candidatos.append(candidato)
+
+    def eliminar_candidato(self, eleccion, candidato):
+        if candidato in eleccion.lista_candidatos:
+            eleccion.lista_candidatos.remove(candidato)
+
