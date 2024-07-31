@@ -42,3 +42,11 @@ class ProcesoElectoralController:
         """
         self.servicio.eliminar(id)
         return '', 204
+    
+    @proceso_electoral_bp.route('/procesos-electorales/<int:id>/detalle', methods=['GET'])
+    def obtener_detalle_proceso(self, id):
+        detalle = self.servicio.obtener_detalle(id)
+        return jsonify(detalle)
+
+servicio = ProcesoElectoralServicio()
+controller = ProcesoElectoralController(servicio)
