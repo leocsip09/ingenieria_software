@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from abc import ABC, abstractmethod
-from Eleccion import Eleccion
+from Model.dominio.proceso_electoral.Eleccion import Eleccion
 
 class IAdministradorEleccion(ABC):
     @abstractmethod

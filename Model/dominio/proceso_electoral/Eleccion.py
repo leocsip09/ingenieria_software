@@ -1,9 +1,9 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 from datetime import datetime
-from Voto import Voto
-from Resultados import Resultados
-from participantes.Elector import Elector
+from Model.dominio.proceso_electoral.Voto import Voto
+from Model.dominio.proceso_electoral.Resultados import Resultados
+from Model.dominio.participantes.Elector import Elector
 from Model.dominio.proceso_electoral.interfaces.Ieleccion import IEleccion
 from Model.models.eleccion import EleccionModelo
 from Model.repositorio.MySQL.eleccion_repositorio_impl import eleccion_repositorio_impl

@@ -1,11 +1,11 @@
-from Model.repositorio.MySQL.elector_repositorio_impl import ElectorRepositorioImpl
-from Model.models.Elector import ElectorModelo
+from Model.repositorio.MySQL.elector_repositorio_impl import elector_repositorio_impl
+from Model.models.Elector import Elector
 
 class Elector:
-    def __init__(self, id, correo, contrasenia, nombre, apellido):
+    def __init__(self, id, correo, contrasena, nombre, apellido):
         self.id = id
         self.correo = correo
-        self.contrasenia = contrasenia
+        self.contrasena = contrasena
         self.nombre = nombre
         self.apellido = apellido
         self.ha_votado = False
@@ -15,8 +15,8 @@ class Elector:
         self.apellido = apellido
         return "Registro exitoso"
 
-    def iniciar_sesion(self, correo, contrasenia):
-        if self.correo == correo and self.contrasenia == contrasenia:
+    def iniciar_sesion(self, correo, contrasena):
+        if self.correo == correo and self.contrasena == contrasena:
             return "Inicio de sesión exitoso"
         else:
             return "Correo o contraseña incorrectos"
@@ -35,36 +35,3 @@ class Elector:
         self.nombre = nombre
         self.apellido = apellido
         return "Datos editados exitosamente"
-
-    def guardar_en_db(self):
-        elector_modelo = ElectorModelo(
-            id=self.id,
-            correo=self.correo,
-            contrasena=self.contrasenia,
-            nombre=self.nombre,
-            apellido=self.apellido,
-            estado_voto=self.ha_votado
-        )
-        return ElectorRepositorioImpl.agregar_elector(elector_modelo)
-
-    def eliminar_de_db(self):
-        elector_modelo = ElectorModelo.query.get(self.id)
-        return ElectorRepositorioImpl.eliminar_elector(elector_modelo)
-
-    @staticmethod
-    def obtener_por_id(id):
-        elector_modelo = ElectorRepositorioImpl.obtener_elector_por_id(id)
-        if elector_modelo:
-            return Elector(
-                id=elector_modelo.id,
-                correo=elector_modelo.correo,
-                contrasenia=elector_modelo.contrasena,
-                nombre=elector_modelo.nombre,
-                apellido=elector_modelo.apellido
-            )
-        return None
-
-    def actualizar_en_db(self, nuevo_correo, nueva_contrasena, nuevo_nombre, nuevo_apellido, nuevo_estado_voto):
-        return ElectorRepositorioImpl.actualizar_elector(
-            self.id, nuevo_correo, nueva_contrasena, nuevo_nombre, nuevo_apellido, nuevo_estado_voto
-        )

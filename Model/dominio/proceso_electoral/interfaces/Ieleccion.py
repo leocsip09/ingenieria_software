@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 
 from abc import ABC, abstractmethod
-from Voto import Voto 
-from participantes.Elector import Elector  
+from Model.dominio.proceso_electoral.Voto import Voto 
+from Model.dominio.participantes.Elector import Elector  
 
 class IEleccion(ABC):
     @abstractmethod

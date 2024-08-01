@@ -1,9 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from Model.extensions import db
-
-users = {
-    'admin': 'password123'
-}
+from Model.repositorio.MySQL.elector_repositorio_impl import elector_repositorio_impl
+from Model.models.Elector import Elector as ElectorClass
 
 def create_app():
     app = Flask(__name__)
@@ -26,13 +24,16 @@ def create_app():
 
     @app.route('/', methods=['POST'])
     def login():
-        username = request.form['username']
-        password = request.form['password']
-        if username in users and users[username] == password:
+        correo = request.form['correo']
+        contrasena = request.form['password']
+        elector = elector_repositorio_impl().obtener_elector_por_correo(correo)
+
+        if elector and elector.contrasena == contrasena:
             print('Inicio de sesión exitoso')
             return redirect(url_for('index'))
         else:
-            print('Nombre de usuario o contraseña incorrectos')
+            print('Correo o contraseña incorrectos')
+            flash('Correo o contraseña incorrectos', 'error')
             return redirect(url_for('logpage'))
 
     @app.route('/eleccion')
@@ -42,10 +43,30 @@ def create_app():
     @app.route('/registrar_candidato')
     def registrar_candidato():
         return render_template('registrar_candidato.html')
-
-    @app.route('/registrar_elector')
-    def registrar_elector():
+    
+    @app.route('/registrar_elector_view')
+    def registrar_elector_view():
         return render_template('registrar_elector.html')
+
+    @app.route('/registrar_elector', methods=['POST'])
+    def registrar_elector():
+        correo = request.form['correo']
+        contrasena = request.form['contrasena']
+        nombre = request.form['nombre']
+        apellido = request.form['apellido']
+        elector = ElectorClass(
+            id=None,
+            correo=correo,
+            contrasena=contrasena,
+            nombre=nombre,
+            apellido=apellido
+        )
+        elector_repo = elector_repositorio_impl()
+        if elector_repo.agregar_elector(elector):
+            flash('Elector registrado exitosamente', 'success')
+        else:
+            flash('Error al registrar elector', 'error')
+        return redirect(url_for('registrar_elector_view'))
 
     @app.route('/registro_electoral')
     def registro_electoral():

@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 from Model.dominio.proceso_electoral.interfaces.Iadministrador_eleccion import IAdministradorEleccion
-from Eleccion import Eleccion
+from Model.dominio.proceso_electoral import Eleccion
 from Model.models.administrador_eleccion import AdministradorModelo
 from Model.repositorio.MySQL.administrador_eleccion_repositorio_impl import AdministradorEleccionRepositorioImpl
 

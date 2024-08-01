@@ -2,6 +2,7 @@
 #-*- coding: utf-8 -*-
 from Model.extensions import db
 from Model.models import Elector
+from Model.models.Elector import Elector as ElectorClass
 
 class elector_repositorio_impl:
     def agregar_elector(self, elector):
@@ -22,11 +23,11 @@ class elector_repositorio_impl:
             db.session.rollback()
             return False
 
-    def obtener_elector_por_id(self, id):
+    def obtener_elector_por_correo(self, correo):
         try:
-            elector = Elector.query.get(id)
-            return elector
-        except Exception:
+            return db.session.query(ElectorClass).filter_by(correo=correo).first()
+        except Exception as e:
+            print(f"Error al obtener elector por correo: {e}")
             return None
     
     def actualizar_elector(self, id, nuevo_correo, nueva_contrasena, nuevo_nombre, nuevo_apellido, nuevo_estado_voto):
