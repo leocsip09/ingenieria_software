@@ -45,7 +45,7 @@ class Eleccion(IEleccion):
             tipo_eleccion=self.tipo_eleccion,
             fecha_inicio=self.fecha_inicio,
             fecha_cierre=self.fecha_fin,
-            lista_candidatos=",".join([candidato for candidato in self.lista_candidatos])
+            lista_candidatos="|".join(self.lista_candidatos)
         )
         eleccion_repositorio_impl.nueva_eleccion(eleccion_modelo)
     

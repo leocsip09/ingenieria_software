@@ -20,7 +20,7 @@ class eleccion_repositorio_impl:
         try:
             entrada = db.session.query(EleccionModelo).filter_by(codigo = eleccion.codigo).one()
             db.session.delete(entrada)
-            db.session.commit
+            db.session.commit()
         except:
             db.session.rollback()
             raise

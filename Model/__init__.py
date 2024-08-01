@@ -1,12 +1,15 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from Model.extensions import db
 from flask_migrate import Migrate
+from datetime import datetime
 from Model.repositorio.MySQL.elector_repositorio_impl import elector_repositorio_impl
 from Model.models.Elector import Elector as ElectorClass
 from Model.repositorio.MySQL.candidato_respositorio_impl import candidato_respositorio_impl
 from Model.models.Candidato import Candidato as CandidatoClass
 from Model.repositorio.MySQL.registro_electoral_repositorio_impl import registro_electoral_repositorio_impl
 from Model.models.registro_electoral import RegistroElectoralModelo 
+from Model.models.eleccion import EleccionModelo
+from Model.repositorio.MySQL.eleccion_repositorio_impl import eleccion_repositorio_impl
 
 def create_app():
     app = Flask(__name__)
@@ -104,21 +107,22 @@ def create_app():
     
     @app.route('/registrar_eleccion', methods=['POST'])
     def registrar_eleccion():
+        tipo_eleccion = request.form['tipo_eleccion']
+        fecha_inicio = datetime.strptime(request.form['fecha_inicio'], '%Y-%m-%dT%H:%M')
+        fecha_fin = datetime.strptime(request.form['fecha_fin'], '%Y-%m-%dT%H:%M')
         candidatos_ids = request.form.getlist('candidatos')
         candidatos = CandidatoClass.query.filter(CandidatoClass.id.in_(candidatos_ids)).all()
-        electores = ElectorClass.query.all()
 
         lista_candidatos = "|".join([f"{candidato.nombre} {candidato.apellido}" for candidato in candidatos])
-        lista_partidos = "|".join([candidato.partido for candidato in candidatos])
-        lista_electores = "|".join([elector.correo for elector in electores])
 
-        nuevo_registro = RegistroElectoralModelo(
-            lista_electores=lista_electores,
-            lista_candidatos=lista_candidatos,
-            lista_partidos=lista_partidos
+        nueva_eleccion = EleccionModelo(
+            tipo_eleccion=tipo_eleccion,
+            fecha_inicio=fecha_inicio,
+            fecha_cierre=fecha_fin,
+            lista_candidatos=lista_candidatos
         )
 
-        registro_electoral_repositorio_impl.ingresar_nuevo_registro(nuevo_registro)
+        eleccion_repositorio_impl.nueva_eleccion(nueva_eleccion)
         flash('Elección registrada exitosamente', 'success')
         return redirect(url_for('registro_electoral'))
 

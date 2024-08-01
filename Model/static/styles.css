@@ -1,5 +1,4 @@
 /* Global Styles */
-
 * {
     box-sizing: border-box;
     margin: 0;
@@ -15,7 +14,6 @@ body {
 }
 
 /* Header Styles */
-
 header {
     background: linear-gradient(90deg, #333, #444);
     color: #fff;
@@ -45,7 +43,6 @@ nav a:hover {
 }
 
 /* Main Styles */
-
 main {
     padding: 40px 20px;
     background-color: #fff;
@@ -56,7 +53,6 @@ main {
 }
 
 /* Footer Styles */
-
 footer {
     background: linear-gradient(90deg, #333, #444);
     color: #fff;
@@ -68,7 +64,6 @@ footer {
 }
 
 /* Container Styles */
-
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -76,7 +71,6 @@ footer {
 }
 
 /* Hero Styles */
-
 .hero {
     text-align: center;
     margin-bottom: 40px;
@@ -95,7 +89,6 @@ footer {
 }
 
 /* Button Styles */
-
 .btn {
     display: inline-block;
     padding: 10px 20px;
@@ -122,7 +115,6 @@ footer {
 }
 
 /* Features Styles */
-
 .features {
     display: flex;
     flex-wrap: wrap;
@@ -194,7 +186,6 @@ footer {
 }
 
 /* Form Styles */
-
 form {
     background-color: #fff;
     padding: 20px;
@@ -215,8 +206,12 @@ form label {
     margin-bottom: 5px;
 }
 
-form input {
-    width: calc(100% - 40px);
+form input[type="text"], 
+form input[type="email"], 
+form input[type="password"], 
+form input[type="datetime-local"], 
+form input[type="checkbox"] {
+    width: calc(100% - 20px);
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -225,8 +220,26 @@ form input {
     display: block; /* Centrar los inputs */
 }
 
-/* Responsive Styles */
+form input[type="checkbox"] {
+    width: auto;
+    margin-right: 10px;
+}
 
+.candidatos-list {
+    margin-top: 10px;
+}
+
+.candidato {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.candidato input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+/* Responsive Styles */
 @media (max-width: 768px) {
     .container {
         max-width: 90%;
