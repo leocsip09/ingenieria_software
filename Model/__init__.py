@@ -1,6 +1,5 @@
 from flask import Flask
 from Model.extensions import db
-from Model.extensions import db
 
 def create_app():
     app = Flask(__name__)
