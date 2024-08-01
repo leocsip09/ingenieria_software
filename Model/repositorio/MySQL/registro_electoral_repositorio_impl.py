@@ -40,3 +40,10 @@ class registro_electoral_repositorio_impl:
             print(f"Hubo un error al consultar la base de datos: {e}")
         finally:
             db.session.close()
+
+    def obtener_elector_por_correo(self, correo):
+        try:
+            return db.session.query.filter_by(correo=correo).first()
+        except Exception as e:
+            print(f"Error al obtener elector por correo: {e}")
+            return None

@@ -5,6 +5,8 @@ from Model.repositorio.MySQL.elector_repositorio_impl import elector_repositorio
 from Model.models.Elector import Elector as ElectorClass
 from Model.repositorio.MySQL.candidato_respositorio_impl import candidato_respositorio_impl
 from Model.models.Candidato import Candidato as CandidatoClass
+from Model.repositorio.MySQL.registro_electoral_repositorio_impl import registro_electoral_repositorio_impl
+from Model.models.registro_electoral import RegistroElectoralModelo 
 
 def create_app():
     app = Flask(__name__)
@@ -12,6 +14,7 @@ def create_app():
 
     db.init_app(app)
     migrate = Migrate(app, db)
+    print(migrate)
 
     with app.app_context():
         from Model.models import Candidato, Elector, eleccion, registro_electoral, administrador_eleccion
@@ -95,7 +98,31 @@ def create_app():
 
     @app.route('/registro_electoral')
     def registro_electoral():
-        return render_template('registro_electoral.html')
+        candidatos = CandidatoClass.query.all()
+        return render_template('registro_electoral.html', candidatos=candidatos)
+
+    
+    @app.route('/registrar_eleccion', methods=['POST'])
+    def registrar_eleccion():
+        candidatos_ids = request.form.getlist('candidatos')
+        candidatos = CandidatoClass.query.filter(CandidatoClass.id.in_(candidatos_ids)).all()
+        electores = ElectorClass.query.all()
+
+        lista_candidatos = "|".join([f"{candidato.nombre} {candidato.apellido}" for candidato in candidatos])
+        lista_partidos = "|".join([candidato.partido for candidato in candidatos])
+        lista_electores = "|".join([elector.correo for elector in electores])
+
+        nuevo_registro = RegistroElectoralModelo(
+            lista_electores=lista_electores,
+            lista_candidatos=lista_candidatos,
+            lista_partidos=lista_partidos
+        )
+
+        registro_electoral_repositorio_impl.ingresar_nuevo_registro(nuevo_registro)
+        flash('Elección registrada exitosamente', 'success')
+        return redirect(url_for('registro_electoral'))
+
+
 
     @app.route('/resultados')
     def resultados():

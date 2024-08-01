@@ -5,8 +5,19 @@
 {% block content %}
 <section>
     <h2>Registro de elecciones</h2>
-    <p>Aquí puedes ver el registro de las elecciones.</p>
-    <!-- Agregar más contenido o funcionalidades aquí -->
-    <a href="{{ url_for('index') }}">Inicio</a></li>
+    <p>Aquí puedes registrar una nueva elección.</p>
+    <form method="POST" action="{{ url_for('registrar_eleccion') }}">
+        <div>
+            <h3>Seleccionar candidatos:</h3>
+            {% for candidato in candidatos %}
+            <div>
+                <input type="checkbox" id="candidato_{{ candidato.id }}" name="candidatos" value="{{ candidato.id }}">
+                <label for="candidato_{{ candidato.id }}">{{ candidato.nombre }} {{ candidato.apellido }} - {{ candidato.partido }}</label>
+            </div>
+            {% endfor %}
+        </div>
+        <button type="submit">Registrar Elección</button>
+    </form>
+    <a href="{{ url_for('index') }}">Inicio</a>
 </section>
 {% endblock %}
