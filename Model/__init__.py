@@ -1,16 +1,20 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from Model.extensions import db
+from flask_migrate import Migrate
 from Model.repositorio.MySQL.elector_repositorio_impl import elector_repositorio_impl
 from Model.models.Elector import Elector as ElectorClass
+from Model.repositorio.MySQL.candidato_respositorio_impl import candidato_respositorio_impl
+from Model.models.Candidato import Candidato as CandidatoClass
 
 def create_app():
     app = Flask(__name__)
     app.config.from_object('config.Config')
 
     db.init_app(app)
+    migrate = Migrate(app, db)
 
     with app.app_context():
-        from .models import Candidato, Elector, eleccion, registro_electoral, administrador_eleccion
+        from Model.models import Candidato, Elector, eleccion, registro_electoral, administrador_eleccion
         db.create_all()
 
     # Aquí se definen las rutas
@@ -40,10 +44,31 @@ def create_app():
     def eleccion():
         return render_template('eleccion.html')
 
-    @app.route('/registrar_candidato')
-    def registrar_candidato():
+    @app.route('/registrar_candidato_view')
+    def registrar_candidato_view():
         return render_template('registrar_candidato.html')
     
+    @app.route('/registrar_candidato', methods=['POST'])
+    def registrar_candidato():
+        candidatura = request.form['candidatura']
+        partido = request.form['partido']
+        nombre = request.form['nombre']
+        apellido = request.form['apellido']
+        correo = request.form['correo']
+        contrasena = request.form['contrasena']
+        candidato = CandidatoClass(
+            candidatura=candidatura,
+            partido=partido,
+            nombre=nombre,
+            apellido=apellido,
+            correo=correo,
+            contrasena=contrasena
+        )
+        db.session.add(candidato)
+        db.session.commit()
+        print('Candidato registrado exitosamente')
+        return redirect(url_for('registrar_candidato_view'))
+
     @app.route('/registrar_elector_view')
     def registrar_elector_view():
         return render_template('registrar_elector.html')
