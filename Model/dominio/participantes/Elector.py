@@ -1,6 +1,5 @@
-from flask import Flask, request, jsonify
-
-app = Flask(__name__)
+from Model.repositorio.MySQL.elector_repositorio_impl import ElectorRepositorioImpl
+from Model.models.Elector import ElectorModelo
 
 class Elector:
     def __init__(self, id, correo, contrasenia, nombre, apellido):
@@ -17,7 +16,7 @@ class Elector:
         return "Registro exitoso"
 
     def iniciar_sesion(self, correo, contrasenia):
-        if self.correo == correo and self.contraseña == contrasenia:
+        if self.correo == correo and self.contrasenia == contrasenia:
             return "Inicio de sesión exitoso"
         else:
             return "Correo o contraseña incorrectos"
@@ -36,36 +35,36 @@ class Elector:
         self.nombre = nombre
         self.apellido = apellido
         return "Datos editados exitosamente"
-""""
-@app.route('/registrar', methods=['POST'])
-def registrar():
-    data = request.json
-    nombre = data.get('nombre')
-    apellido = data.get('apellido')
-    return jsonify({"mensaje": elector.registrar(nombre, apellido)})
 
-@app.route('/iniciar_sesion', methods=['POST'])
-def iniciar_sesion():
-    data = request.json
-    correo = data.get('correo')
-    contrasenia = data.get('contraseña')
-    return jsonify({"mensaje": elector.iniciar_sesion(correo, contraseña)})
+    def guardar_en_db(self):
+        elector_modelo = ElectorModelo(
+            id=self.id,
+            correo=self.correo,
+            contrasena=self.contrasenia,
+            nombre=self.nombre,
+            apellido=self.apellido,
+            estado_voto=self.ha_votado
+        )
+        return ElectorRepositorioImpl.agregar_elector(elector_modelo)
 
-@app.route('/votar', methods=['POST'])
-def votar():
-    return jsonify({"mensaje": elector.votar()})
+    def eliminar_de_db(self):
+        elector_modelo = ElectorModelo.query.get(self.id)
+        return ElectorRepositorioImpl.eliminar_elector(elector_modelo)
 
-@app.route('/estado_voto', methods=['GET'])
-def estado_voto():
-    return jsonify({"mensaje": elector.estado_voto()})
+    @staticmethod
+    def obtener_por_id(id):
+        elector_modelo = ElectorRepositorioImpl.obtener_elector_por_id(id)
+        if elector_modelo:
+            return Elector(
+                id=elector_modelo.id,
+                correo=elector_modelo.correo,
+                contrasenia=elector_modelo.contrasena,
+                nombre=elector_modelo.nombre,
+                apellido=elector_modelo.apellido
+            )
+        return None
 
-@app.route('/editar_datos', methods=['POST'])
-def editar_datos():
-    data = request.json
-    nombre = data.get('nombre')
-    apellido = data.get('apellido')
-    return jsonify({"mensaje": elector.editar_datos(nombre, apellido)})
-
-if __name__ == '__main__':
-    app.run(debug=True)
-    """
+    def actualizar_en_db(self, nuevo_correo, nueva_contrasena, nuevo_nombre, nuevo_apellido, nuevo_estado_voto):
+        return ElectorRepositorioImpl.actualizar_elector(
+            self.id, nuevo_correo, nueva_contrasena, nuevo_nombre, nuevo_apellido, nuevo_estado_voto
+        )

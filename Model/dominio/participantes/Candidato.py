@@ -1,6 +1,7 @@
-#from flask import Flask, request, jsonify
-from Elector import Elector
-#app = Flask(__name__)
+from Model.repositorio.MySQL.eleccion_repositorio_impl import EleccionRepositorioImpl
+from Model.dominio.participantes.Elector import Elector
+from Model.models.eleccion import EleccionModelo
+
 class Candidato(Elector):
     def __init__(self, id, correo, contrasenia, nombre, apellido, candidatura, propuesta):
         super().__init__(id, correo, contrasenia, nombre, apellido)
@@ -27,27 +28,14 @@ class Candidato(Elector):
         self.candidatura = candidatura
         self.propuesta = propuesta
         return "Candidato registrado exitosamente"
-""""
-@app.route('/modificar_propuesta', methods=['POST'])
-def modificar_propuesta():
-    data = request.json
-    propuesta = data.get('propuesta')
-    return jsonify({"mensaje": candidato.modificar_propuesta(propuesta)})
-
-@app.route('/actualizar_perfil', methods=['POST'])
-def actualizar_perfil():
-    data = request.json
-    candidatura = data.get('candidatura')
-    propuesta = data.get('propuesta')
-    return jsonify({"mensaje": candidato.actualizar_perfil(elector, candidatura, propuesta)})
-
-@app.route('/registrar_candidato', methods=['POST'])
-def registrar_candidato():
-    data = request.json
-    candidatura = data.get('candidatura')
-    propuesta = data.get('propuesta')
-    return jsonify({"mensaje": candidato.registrar_candidato(elector, candidatura, propuesta)})
-
-if __name__ == '__main__':
-    app.run(debug=True)
-""""
+    
+    def guardar_eleccion(self, eleccion):
+        eleccion_modelo = EleccionModelo(
+            codigo=eleccion.codigo,
+            tipo_eleccion=eleccion.tipo_eleccion,
+            fecha_inicio=eleccion.fecha_inicio,
+            fecha_cierre=eleccion.fecha_cierre,
+            lista_candidatos=eleccion.lista_candidatos
+        )
+        EleccionRepositorioImpl.nueva_eleccion(eleccion_modelo)
+        return "Elección guardada exitosamente"

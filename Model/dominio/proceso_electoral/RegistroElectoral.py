@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 
 from Model.dominio.proceso_electoral.interfaces.Iregistro_electoral_repositorio import IRegistroElectoralRepositorio
+from Model.models.registro_electoral import RegistroElectoralModelo
+from Model.repositorio.MySQL.registro_electoral_repositorio_impl import registro_electoral_repositorio_impl
 
 
 class RegistroElectoral(IRegistroElectoralRepositorio):
@@ -10,7 +12,7 @@ class RegistroElectoral(IRegistroElectoralRepositorio):
         self.lista_electores = []  
         self.lista_candidatos = []  
         self.lista_partidos = []  
-        
+    
     def agregar_elector(self, elector) -> None:
         """Agrega un elector a la lista de electores."""
         self.lista_electores.append(elector)
@@ -37,3 +39,16 @@ class RegistroElectoral(IRegistroElectoralRepositorio):
         """Elimina un partido de la lista de partidos."""
         if partido in self.lista_partidos:
             self.lista_partidos.remove(partido)
+
+    def guardar_registro(self):
+        registro_modelo = RegistroElectoralModelo(
+            lista_electores="|".join(self.lista_electores),
+            lista_candidatos="|".join(self.lista_candidatos),
+            lista_partidos="|".join(self.lista_partidos)
+        )
+        registro_electoral_repositorio_impl.ingresar_nuevo_registro(registro_modelo)
+
+    def eliminar_registro(self, registro_id):
+        registro_modelo = RegistroElectoralModelo.query.filter_by(id=registro_id).first()
+        if registro_modelo:
+            registro_electoral_repositorio_impl.eliminar_registro(registro_modelo)

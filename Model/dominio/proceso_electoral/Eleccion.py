@@ -1,12 +1,12 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-
 from datetime import datetime
-from Voto import Voto 
+from Voto import Voto
 from Resultados import Resultados
 from participantes.Elector import Elector
 from Model.dominio.proceso_electoral.interfaces.Ieleccion import IEleccion
-
+from Model.models.eleccion import EleccionModelo
+from Model.repositorio.MySQL.eleccion_repositorio_impl import eleccion_repositorio_impl
 
 class Eleccion(IEleccion):
     def __init__(self, tipo_eleccion: str = None, fecha_inicio: datetime = None, fecha_fin: datetime = None):
@@ -39,3 +39,17 @@ class Eleccion(IEleccion):
         """Envía una notificación al elector después de votar."""
         if isinstance(elector, Elector):
             return
+
+    def guardar_eleccion(self):
+        eleccion_modelo = EleccionModelo(
+            tipo_eleccion=self.tipo_eleccion,
+            fecha_inicio=self.fecha_inicio,
+            fecha_cierre=self.fecha_fin,
+            lista_candidatos=",".join([candidato for candidato in self.lista_candidatos])
+        )
+        eleccion_repositorio_impl.nueva_eleccion(eleccion_modelo)
+    
+    def eliminar_eleccion(self):
+        eleccion_modelo = EleccionModelo.query.filter_by(tipo_eleccion=self.tipo_eleccion).first()
+        if eleccion_modelo:
+            eleccion_repositorio_impl.eliminar_eleccion(eleccion_modelo)
