@@ -1,18 +1,39 @@
 #!/usr/bin/python
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
-class RegistroElectoral:
+from Model.dominio.proceso_electoral.interfaces.Iregistro_electoral_repositorio import IRegistroElectoralRepositorio
+
+
+class RegistroElectoral(IRegistroElectoralRepositorio):
     def __init__(self):
-        self.lista_electores = None
-        self.lista_candidatos = None
-        self.lista_partidos = None
+        """Inicializa las listas de electores, candidatos y partidos."""
+        self.lista_electores = []  
+        self.lista_candidatos = []  
+        self.lista_partidos = []  
+        
+    def agregar_elector(self, elector) -> None:
+        """Agrega un elector a la lista de electores."""
+        self.lista_electores.append(elector)
 
-    def agregar_elector(self, elector):
-        pass
+    def eliminar_elector(self, elector) -> None:
+        """Elimina un elector de la lista de electores."""
+        if elector in self.lista_electores:
+            self.lista_electores.remove(elector)
 
-    def eliminar_elector(self, elector):
-        pass
+    def agregar_candidato(self, candidato) -> None:
+        """Agrega un candidato a la lista de candidatos."""
+        self.lista_candidatos.append(candidato)
 
-    def actualizar_datos_elector(self, ):
-        pass
+    def eliminar_candidato(self, candidato) -> None:
+        """Elimina un candidato de la lista de candidatos."""
+        if candidato in self.lista_candidatos:
+            self.lista_candidatos.remove(candidato)
 
+    def agregar_partido(self, partido) -> None:
+        """Agrega un partido a la lista de partidos."""
+        self.lista_partidos.append(partido)
+
+    def eliminar_partido(self, partido) -> None:
+        """Elimina un partido de la lista de partidos."""
+        if partido in self.lista_partidos:
+            self.lista_partidos.remove(partido)
