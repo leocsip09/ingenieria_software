@@ -1,34 +1,19 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modificar Perfil</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-</head>
-<body>
-    <header>
-        <h1>Modificar Perfil</h1>
-        <nav>
-            <a href="{{ url_for('participantes.modificar_perfil') }}">Modificar Perfil</a>
-            <a href="{{ url_for('participantes.registrar_candidato') }}">Registrar Candidato</a>
-            <a href="{{ url_for('participantes.registrar_elector') }}">Registrar Elector</a>
-        </nav>
-    </header>
-    <main>
-        <section>
-            <h2>Formulario de Modificación de Perfil</h2>
-            <form action="#" method="post">
-                <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" name="nombre" required><br>
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required><br>
-                <input type="submit" value="Actualizar">
-            </form>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2024 Sistema de Elecciones en Línea</p>
-    </footer>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}Modificar Perfil{% endblock %}
+
+{% block content %}
+<section>
+    <section>
+        <h2>Formulario de Modificación de Perfil</h2>
+        <form action="#" method="post">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required><br>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required><br>
+            <input type="submit" value="Actualizar">
+        </form>
+    </section>
+    <a href="{{ url_for('index') }}">Inicio</a></li>
+</section>
+{% endblock %}
