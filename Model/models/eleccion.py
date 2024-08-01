@@ -5,7 +5,7 @@ class EleccionModelo(db.Model):
     tipo_eleccion = db.Column(db.Text)
     fecha_inicio = db.Column(db.DateTime)
     fecha_cierre = db.Column(db.DateTime)
-    lista_candidatos = db.Columnd(db.Text)
+    lista_candidatos = db.Column(db.Text)
 
     def __repr__(self):
         return f'{self.tipo_eleccion}'
