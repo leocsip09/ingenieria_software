@@ -1,8 +1,8 @@
 # sistema de elecciones online 
-# De qué trata? Un sistema online donde realizar las votaciones, con vision de elector y candidato
-# Qué encontramos en el fork actual? Las clases de Elector y Candidato
-# Tecnologias usadas: python flask
-# Tareas Encargadas: crear la clase Elector y Candidato con python flask
+## De qué trata? Un sistema online donde realizar las votaciones, con vision de elector y candidato
+## Qué encontramos en el fork actual? Las clases de Elector y Candidato
+## Tecnologias usadas: python flask
+## Tareas Encargadas: crear la clase Elector y Candidato con python flask
 
 # Ejemplo de crear clases: 
 elector = Elector(id=1, correo="ejemplo@correo.com", contraseña="password123", nombre="Juan", apellido="Perez")
